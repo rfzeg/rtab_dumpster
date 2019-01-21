@@ -1,0 +1,62 @@
+<?xml version="1.0" ?>
+<robot name="rb2cart">
+  <joint name="rb2cart__link_1_JOINT_1" type="fixed">
+    <parent link="rb2cart__link_1"/>
+    <child link="rb2cart__link_0"/>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <joint name="rb2cart__link_1_JOINT_2" type="fixed">
+    <parent link="rb2cart__link_1"/>
+    <child link="rb2cart__link_2"/>
+    <origin rpy="0 0 0" xyz="0      0      0.19833"/>
+    <axis xyz="0 0 0"/>
+    <limit effort="0" lower="0" upper="0" velocity="0"/>
+  </joint>
+  <link name="rb2cart__link_0">
+    <inertial>
+      <mass value="2.0"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.106667" ixy="0" ixz="0" iyy="0.106667" iyz="0" izz="0.106667"/>
+    </inertial>
+    <collision name="rb2cart__collision">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/meshes/cart_structure.dae" scale="1.0 1.0 1.0"/>
+      </geometry>
+    </collision>
+    <visual name="rb2cart__visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/meshes/cart_structure.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="rb2cart__link_1">
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.166667" ixy="0" ixz="0" iyy="0.166667" iyz="0" izz="0.166667"/>
+    </inertial>
+    <visual name="rb2cart__visual">
+      <origin rpy="0 0 0" xyz="0       0      -0.00666"/>
+      <geometry>
+        <mesh filename="package://PATHTOMESHES/meshes/qr_structure.dae" scale="1 1 1"/>
+      </geometry>
+    </visual>
+  </link>
+  <link name="rb2cart__link_2">
+    <inertial>
+      <mass value="0.0001"/>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <inertia ixx="0.166667" ixy="0" ixz="0" iyy="0.166667" iyz="0" izz="0.166667"/>
+    </inertial>
+    <visual name="rb2cart__visual">
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.021 0.12 0.12"/>
+      </geometry>
+    </visual>
+  </link>
+</robot>
