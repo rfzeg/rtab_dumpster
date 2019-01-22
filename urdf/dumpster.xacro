@@ -75,7 +75,7 @@
   </link>
   
 <!-- Dump box -->
-<!--  -->
+
     <joint name="dump_box_joint" type="fixed">
     <origin xyz="0 0 0.1" rpy="1.57079 0 1.57079" />
     <parent link="chassis"/>
@@ -105,19 +105,17 @@
     <visual name='dump_box_visual'>
       <origin xyz="-0.355 -0.05 0.2" rpy=" 0 0 0"/>
         <geometry>
-        <mesh filename="package://dumpster/meshes/dumper_bin.stl" scale="0.006 0.006 0.006"/>
+        <mesh filename="package://dumpster/meshes/dumper_bin.dae" scale="0.006 0.006 0.006"/>
         </geometry>
         <material name="blue"/>
     </visual>
-
-  </link>
-
+ </link>
 
 
 
 <!-- plastic bin -->
   
-<!--  
+<!--
     <joint name="plastic_bin_joint" type="fixed">
  <origin xyz="0.0 0.0 0.0" rpy="0 0 -1.57079" />
 <parent link="chassis"/>

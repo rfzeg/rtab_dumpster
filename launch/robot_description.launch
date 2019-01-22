@@ -9,7 +9,8 @@
     <param name="use_gui" value="false"/>
   </node>
 
-<!-- Send robot states to tf -->
+<!-- Send robot states to tf based on URDF specified by the parameter robot_description -->
+<!-- and the joint positions from the topic > joint_states  -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
 
 </launch>

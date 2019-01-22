@@ -36,4 +36,7 @@
 	-model $(arg robot_name)"
 	respawn="false" output="screen"/>
 
+<!--launch rviz with configuration file-->
+<node type="rviz" name="rviz" pkg="rviz" respawn="false" args="-d $(find dumpster)/rviz/dumpster.rviz"/>
+
 </launch>
