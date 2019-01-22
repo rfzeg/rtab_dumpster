@@ -273,15 +273,15 @@
     <visual name='camera_visual'>
       <origin xyz="0.0 0 0" rpy="0 0 0"/>
       <geometry>
-         <box size="0.05 0.05 0.05"/>
+         <box size="0.025 0.05 0.05"/>
       </geometry>
     </visual>
   </link>
 
 <joint type="fixed" name="camera_joint">
-    <origin xyz="0.2 0 0" rpy="0 0 0"/>
+    <origin xyz="0.0375 0 0.224" rpy="0 0 0"/>
     <child link="camera"/>
-    <parent link="chassis"/>
+    <parent link="laser_pole"/>
   </joint>
 
 <!-- Laser -->
