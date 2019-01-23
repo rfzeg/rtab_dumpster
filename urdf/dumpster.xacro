@@ -4,11 +4,9 @@
 
 <xacro:include filename="$(find dumpster)/urdf/dumpster.gazebo" />
 
-<material name="blue">
-      <color rgba="0 0 0.8 1"/>
-</material>
-
   <link name="robot_footprint"></link>
+
+<!-- Chassis & caster wheels -->
 
   <joint name="robot_footprint_joint" type="fixed">
     <origin xyz="0 0 0" rpy="0 0 0" />
@@ -17,73 +15,7 @@
   </joint>
 
   <link name='chassis'>
-    <pose>0 0 0 0 0 0</pose>
-
-    <inertial>
-      <mass value="15.0"/>
-      <origin xyz="0.1 0 0" rpy=" 0 0 0"/>
-      <inertia
-          ixx="0.1" ixy="0" ixz="0"
-          iyy="0.1" iyz="0"
-          izz="0.1"
-      />
-    </inertial>
-
-    <collision name='collision'>
-      <origin xyz="0.1 0 0" rpy=" 0 0 0"/> 
-      <geometry>
-        <box size=".6 .4 .1"/>
-      </geometry>
-    </collision>
-
-    <visual name='chassis_visual'>
-      <origin xyz="0.1 0 0" rpy=" 0 0 0"/>
-      <geometry>
-        <box size=".6 .4 .1"/>
-      </geometry>
-    </visual>
-
-
-    <collision name='back_caster_collision'>
-      <origin xyz="-0.15 0 -0.1" rpy=" 0 0 0"/>
-      <geometry>
-        <sphere radius="0.0499"/>
-      </geometry>
-    </collision>
-
-    <visual name='back_caster_visual'>
-      <origin xyz="-0.15 0 -0.1" rpy=" 0 0 0"/>
-      <geometry>
-        <sphere radius="0.05"/>
-      </geometry>
-    </visual>
-
-    <collision name='front_caster_collision'>
-      <origin xyz="0.3 0 -0.1" rpy=" 0 0 0"/>
-      <geometry>
-        <sphere radius="0.0499"/>
-      </geometry>
-    </collision>
-
-    <visual name='front_caster_visual'>
-      <origin xyz="0.3 0 -0.1" rpy=" 0 0 0"/>
-      <geometry>
-        <sphere radius="0.05"/>
-      </geometry>
-    </visual>
-
-  </link>
-  
-<!-- Dump box -->
-
-    <joint name="dump_box_joint" type="fixed">
-    <origin xyz="0 0 0.1" rpy="1.57079 0 1.57079" />
-    <parent link="chassis"/>
-    <child link="dump_box" />
-  </joint>
-
-  <link name='dump_box'>
-    <pose>0 0 0 0 0 0</pose>
+    <pose>0 0 0.15 0 0 0</pose>
 
     <inertial>
       <mass value="15.0"/>
@@ -96,26 +28,88 @@
     </inertial>
 
     <collision name='collision'>
-      <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/> 
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/> 
       <geometry>
-        <box size=".8 .4 .1"/>
+        <box size=".6 .4 .1"/>
       </geometry>
     </collision>
 
+    <visual name='chassis_visual'>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <geometry>
+        <box size=".6 .4 .1"/>
+      </geometry>
+    </visual>
+
+    <collision name='back_caster_collision'>
+      <origin xyz="-0.25 0 -0.1" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.0499"/>
+      </geometry>
+    </collision>
+
+    <visual name='back_caster_visual'>
+      <origin xyz="-0.25 0 -0.1" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </visual>
+
+    <collision name='front_caster_collision'>
+      <origin xyz="0.25 0 -0.1" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.0499"/>
+      </geometry>
+    </collision>
+
+    <visual name='front_caster_visual'>
+      <origin xyz="0.25 0 -0.1" rpy=" 0 0 0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </visual>
+
+  </link>
+
+
+<!-- Dump box -->
+  
+    <joint name="dump_box_joint" type="fixed">
+    <origin xyz="0 0 0.1" rpy="1.57079 0 1.57079" />
+    <parent link="chassis"/>
+    <child link="dump_box" />
+  </joint>
+ 
+  <link name='dump_box'>
+    <pose>0 0 0 0 0 0</pose>
+ 
+    <inertial>
+      <mass value="0.0"/>
+      <origin xyz="0 0 -0.1" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0" ixz="0"
+          iyy="0.1" iyz="0"
+          izz="0.1"
+      />
+    </inertial>
+ 
+    <collision name='collision'>
+      <origin xyz="0 0 -0.1" rpy=" 0 0 0"/> 
+      <geometry>
+        <box size=".1 .1 .1"/>
+      </geometry>
+    </collision>
+ 
     <visual name='dump_box_visual'>
-      <origin xyz="-0.355 -0.05 0.2" rpy=" 0 0 0"/>
+      <origin xyz="-0.355 -0.05 0.1" rpy=" 0 0 0"/>
         <geometry>
         <mesh filename="package://dumpster/meshes/dumper_bin.dae" scale="0.006 0.006 0.006"/>
         </geometry>
-        <material name="blue"/>
     </visual>
  </link>
-
-
-
+ 
 <!-- plastic bin -->
-  
-<!--
+  <!--
     <joint name="plastic_bin_joint" type="fixed">
  <origin xyz="0.0 0.0 0.0" rpy="0 0 -1.57079" />
 <parent link="chassis"/>
@@ -136,16 +130,16 @@
 <!-- laser pole -->
   
 <joint type="fixed" name="pole_joint">
-    <origin xyz="0.35 0.0 0.1" rpy="0 0 0"/>
+    <origin xyz="0.25 0.0 0.1" rpy="0 0 0"/>
     <child link="laser_pole"/>
     <parent link="chassis"/>
   </joint>
-
+ 
   <link name='laser_pole'>
     <pose>0 0 0 0 0 0</pose>
-
+ 
     <inertial>
-      <mass value="15.0"/>
+      <mass value="0.2"/>
       <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
       <inertia
           ixx="0.1" ixy="0" ixz="0"
@@ -153,23 +147,23 @@
           izz="0.1"
       />
     </inertial>
-
+ 
     <collision name='collision'>
       <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/> 
       <geometry>
-        <box size=".8 .4 .1"/>
+        <box size="0.05 0.05 0.3"/>
       </geometry>
     </collision>
-
+ 
     <visual name='laser_pole_visual'>
       <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/>
         <geometry>
         <box size="0.05 0.05 0.3"/>
         </geometry>
     </visual>
-
+ 
   </link>
-  
+
 <!-- Wheels -->
 
 <joint type="continuous" name="left_wheel_hinge">
@@ -182,7 +176,7 @@
   </joint>
 
 <link name='left_wheel'>
-    <pose>0 0 0.1 0 0 0</pose>
+    <pose>0 0 0.15 0 0 0</pose>
 
     <inertial>
       <mass value="5.0"/>
@@ -219,7 +213,7 @@
   </joint>
 
 <link name='right_wheel'>
-    <pose>0 0 0.1 0 0 0</pose>
+    <pose>0 0 0.15 0 0 0</pose>
 
     <inertial>
       <mass value="5.0"/>
@@ -285,7 +279,7 @@
 <!-- Laser -->
 
 <link name="hokuyo">
-    <pose>0 0 0.5 0 0 0</pose>
+    <pose>0 0 0.1 0 0 0</pose>
 
     <inertial>
       <mass value="0.1"/>
@@ -305,15 +299,15 @@
     </collision>
 
     <visual name='hokuyo_visual'>
-      <origin xyz="0.0 0 -0.05" rpy="0 0 0"/>
+      <origin xyz="0.0 0 0" rpy="0 0 0"/>
       <geometry>
-         <mesh filename="package://dumpster/meshes/hokuyo.dae"/>
+         <mesh filename="package://udacity_bot/meshes/hokuyo.dae"/>
       </geometry>
     </visual>
   </link>
 
 <joint type="fixed" name="hokuyo_joint">
-    <origin xyz="0.0 0 0.335" rpy="0 0 0"/>
+    <origin xyz="0.0 0 0.285" rpy="0 0 0"/>
     <child link="hokuyo"/>
     <parent link="laser_pole"/>
   </joint>
