@@ -4,13 +4,14 @@
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>10</updateRate>
+      <updateRate>10</updateRate>  <!-- frequency in (Hz) published by the plugin -->
       <leftJoint>left_wheel_hinge</leftJoint>
       <rightJoint>right_wheel_hinge</rightJoint>
-      <wheelSeparation>0.4</wheelSeparation>
-      <wheelDiameter>0.2</wheelDiameter>
-      <torque>10</torque>
-      <commandTopic>cmd_vel</commandTopic>
+      <wheelSeparation>0.6</wheelSeparation>
+      <wheelDiameter>0.3</wheelDiameter>
+      <torque>20</torque>
+      <!-- topic name on which to publish the linear and angular velocity of the robot -->
+      <commandTopic>cmd_vel</commandTopic> 
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
       <robotBaseFrame>robot_footprint</robotBaseFrame>
@@ -36,7 +37,7 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>udacity_bot/camera1</cameraName>
+        <cameraName>dumpster/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera</frameName>
@@ -81,7 +82,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/udacity_bot/laser/scan</topicName>
+        <topicName>/dumpster/laser/scan</topicName>
         <frameName>hokuyo</frameName>
       </plugin>
     </sensor>
