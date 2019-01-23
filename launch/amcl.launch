@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<launch>
+
+  <!-- Run the map server -->
+  <arg name="map_file" default="$(find dumpster)/maps/jackal_race.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- Start AMCL localization node with configured parameters -->
+  <node pkg="amcl" type="amcl" name="amcl" output="screen">
+    <remap from="scan" to="dumpster/laser/scan"/>
+   
+   <!-- Overall Filter Parameters-->
+    <!-- Maximum rate (Hz) at which scans and paths are published for visualization (GUI), -1.0 to disable, default -1.0 Hz -->
+    <param name="gui_publish_rate" value="10.0"/>
+    <!-- Initial pose mean (x), used to initialize filter with Gaussian distribution, default: 0.0 mt -->
+    <param name="initial_pose_x" value ="0.0"/>
+    <!-- Initial pose mean (y), used to initialize filter with Gaussian distribution, default: 0.0 mt -->
+    <param name="initial_pose_y" value ="0.0"/>
+    <!-- Initial pose mean (yaw), used to initialize filter with Gaussian distribution, default: 0.0 rad -->
+    <param name="initial_pose_a" value ="0.0"/>
+    <!-- Time with which to post-date the transform that is published -->
+    <param name="transform_tolerance" value="0.5"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="odom_model_type" value="diff-corrected"/>
+    <param name="base_frame_id" value="robot_footprint"/>
+    <param name="global_frame_id" value="map"/>
+    <!-- Tune based on system specifications -->
+    <!-- A large range with a high maximum is computationally extensive for a low-end system -->
+    <param name="min_particles" value="500"/>
+    <param name="max_particles" value="5000"/>
+    
+    <!-- Values used to determine when a filter update is calculated based on how far the robot has moved or rotated -->
+    <!-- Otherwise the scan data is discarted, this could result in poorer localization results -->
+    <!-- Too many frequent updates (on a fast moving robot) could cause computational problems-->
+    <param name="update_min_d" value="0.2"/> <!-- meters -->
+    <param name="update_min_a" value="0.5"/> <!-- radian -->
+
+   <!-- Laser Parameters-->
+    <!-- Which model to use: beam, likelihood_field, or likelihood_field_prob; default: likelihood_field -->
+    <!-- likelihood field model is more computational efficient than the beam model -->
+    <param name="laser_model_type" value="likelihood_field" />
+    
+    <!-- Minimum scan range to be considered, default : -1.0 -->
+    <!-- -1.0 will cause the laser's reported minimum range to be used -->
+    <param name="laser_min_range" value="-1.0"/> 
+    
+    <!-- Maximum scan range to be considered, default : -1.0 -->
+    <!-- -1.0 will cause the laser's reported maximum range to be used -->
+    <!-- Note: the likelihood ﬁeld measurement model discards max-range reading -->
+    <param name="laser_max_range" value="-1.0"/>
+    
+    <!-- Mixture weight used for integrating the z_hit part of the model (likelihood_field and beam model), default: 0.95 -->
+    <param name="laser_z_hit" value="0.5"/>
+    <!-- Mixture weight used for integrating the z_rand part of the model (likelihood_field and beam model), default: 0.05 -->
+    <param name="laser_z_rand" value="0.5"/>
+    
+    <!-- Mixture weight for the z_short part of the model (only beam model), default: 0.1 -->
+    <param name="laser_z_short" value="0.05"/>
+    <!-- Mixture weight for the z_max part of the model (only beam model), default: 0.05 -->
+    <param name="laser_z_max" value="0.05"/>
+
+    
+    <!-- Standard deviation for Gaussian model used in z_hit part of the model, default: 0.2 mt -->
+    <param name="laser_sigma_hit" value="0.2"/>
+    <!-- Exponential decay parameter for z_short part of model, default: 0.1 -->
+    <param name="laser_lambda_short" value="0.1"/>
+    <!-- Max. distance to do obstacle inflation on map, for use in likelihood_field model, default: 2.0 mt -->
+    <param name="laser_likelihood_max_dist" value="2.0"/>
+    <!-- How many evenly-spaced beams in each scan to be used when updating the filter, default: 30 -->
+    <param name="laser_max_beams" value="30"/>
+
+<!-- Odometry model parameters-->
+    <!-- Which model to use, either "diff", "omni", "diff-corrected" or "omni-corrected", default: "diff" -->
+    <param name="odom_model_type" value="diff-corrected"/>
+    
+    <!-- Odometry received from Gazebo is equivalent to the ground truth value (no noise expected) -->
+    <!-- Specifies the expected noise in odometry's rotation estimate from the rotational component of the robot's motion, default: 0.2 -->
+    <param name="odom_alpha1" value="0.0"/>
+    <!-- Specifies the expected noise in odometry's rotation estimate from translational component of the robot's motion, default: 0.2 -->
+    <param name="odom_alpha2" value="0.0"/>
+    <!-- translation std dev, m -->
+    <!-- Specifies the expected noise in odometry's translation estimate from the translational component of the robot's motion, default: 0.2 -->
+    <param name="odom_alpha3" value="0.0"/>
+    <!-- Specifies the expected noise in odometry's translation estimate from the rotational component of the robot's motion, default: 0.2 -->
+    <param name="odom_alpha4" value="0.0"/>
+
+  </node>
+
+ <!-- Start move_base (nav stack) node and load config files -->
+  <arg name="base_global_planner" default="navfn/NavfnROS"/>
+  <!-- alternative global planners - default is NavfnROS -->
+  <!-- arg name="base_global_planner" default="carrot_planner/CarrotPlanner"/ -->
+  <!-- arg name="base_global_planner" default="global_planner/GlobalPlanner"/ -->
+  
+  <arg name="base_local_planner" default="base_local_planner/TrajectoryPlannerROS"/>
+  <!-- alternative local planners - default is trajectory rollout -->
+  <!-- arg name="base_local_planner" default="dwa_local_planner/DWAPlannerROS"/ -->
+ 
+  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find dumpster)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find dumpster)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find dumpster)/config/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find dumpster)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find dumpster)/config/base_local_planner_params.yaml" command="load" />
+
+    <remap from="cmd_vel" to="cmd_vel"/>
+    <remap from="odom" to="odom"/>
+    <remap from="scan" to="dumpster/laser/scan"/>
+    
+    <param name="base_global_planner" value="$(arg base_global_planner)"/>
+    <param name="base_local_planner" value="$(arg base_local_planner)"/>  
+
+    <param name="controller_frequency" type="double" value="3"/>
+    
+  </node>
+
+</launch>
