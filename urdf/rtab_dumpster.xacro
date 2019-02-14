@@ -127,15 +127,15 @@
       </link>
 -->
 
-<!-- laser pole -->
+<!-- kinect pole -->
   
-<joint type="fixed" name="pole_joint">
-    <origin xyz="0.25 0.0 0.1" rpy="0 0 0"/>
-    <child link="laser_pole"/>
+<joint type="fixed" name="kinect_pole_joint">
+    <origin xyz="0.275 0.0 0.1" rpy="0 0 0"/>
+    <child link="kinect_pole"/>
     <parent link="chassis"/>
   </joint>
  
-  <link name='laser_pole'>
+  <link name='kinect_pole'>
     <pose>0 0 0 0 0 0</pose>
  
     <inertial>
@@ -155,7 +155,7 @@
       </geometry>
     </collision>
  
-    <visual name='laser_pole_visual'>
+    <visual name='kinect_pole_visual'>
       <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/>
         <geometry>
         <box size="0.05 0.05 0.3"/>
@@ -279,23 +279,7 @@
 -->
 
 <!-- Kinect Sensor -->
-<!-- link name must match the name of the reference in the .gazebo file -->
-    <link name="kinect_link">
-        <visual>
-            <origin xyz="0 0 0" rpy="0 0 1.5708"/>
-            <geometry>
-                <mesh filename="package://rtab_dumpster/meshes/kinect.dae" scale="1.0 1.0 1.0"/>
-            </geometry>
-        </visual>
-    </link>
-
-    <joint name="kinect_joint" type="fixed">
-        <origin xyz="0.0 0 0.285" rpy="0 0 0"/>
-        <parent link="laser_pole"/>
-        <child link="kinect_link"/>
-</joint>
-
-
+<xacro:include filename="$(find rtab_dumpster)/urdf/kinect.xacro"/>
 <!-- Laser -->
 <!--
 <link name="hokuyo">
