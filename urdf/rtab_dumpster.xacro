@@ -1,8 +1,8 @@
 <?xml version='1.0'?>
 
-<robot name="dumpster" xmlns:xacro="http://www.ros.org/wiki/xacro">
+<robot name="rtab_dumpster" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-<xacro:include filename="$(find dumpster)/urdf/dumpster.gazebo" />
+<xacro:include filename="$(find rtab_dumpster)/urdf/rtab_dumpster.gazebo" />
 
   <link name="robot_footprint"></link>
 
@@ -103,7 +103,7 @@
     <visual name='dump_box_visual'>
       <origin xyz="-0.355 -0.05 0.1" rpy=" 0 0 0"/>
         <geometry>
-        <mesh filename="package://dumpster/meshes/dumper_bin.dae" scale="0.006 0.006 0.006"/>
+        <mesh filename="package://rtab_dumpster/meshes/dumper_bin.dae" scale="0.006 0.006 0.006"/>
         </geometry>
     </visual>
  </link>
@@ -121,7 +121,7 @@
       <visual>
      <origin xyz="-0.319 -1.895 -0.285" rpy=" 0 0 0"/>
           <geometry>
-            <mesh filename="package://dumpster/meshes/plastic_bin_bin.stl" scale="0.14 0.14 0.14"/>
+            <mesh filename="package://rtab_dumpster/meshes/plastic_bin_bin.stl" scale="0.14 0.14 0.14"/>
           </geometry>
         </visual>
       </link>
@@ -301,7 +301,7 @@
     <visual name='hokuyo_visual'>
       <origin xyz="0.0 0 0" rpy="0 0 0"/>
       <geometry>
-         <mesh filename="package://udacity_bot/meshes/hokuyo.dae"/>
+         <mesh filename="package://rtab_dumpster/meshes/hokuyo.dae"/>
       </geometry>
     </visual>
   </link>

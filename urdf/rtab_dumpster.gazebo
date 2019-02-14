@@ -37,7 +37,7 @@
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
-        <cameraName>dumpster/camera1</cameraName>
+        <cameraName>rtab_dumpster/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera</frameName>
@@ -82,7 +82,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/dumpster/laser/scan</topicName>
+        <topicName>/rtab_dumpster/laser/scan</topicName>
         <frameName>hokuyo</frameName>
       </plugin>
     </sensor>

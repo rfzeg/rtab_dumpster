@@ -2,7 +2,7 @@
 <launch>
 
   <!-- send urdf to param server -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find dumpster)/urdf/dumpster.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rtab_dumpster)/urdf/rtab_dumpster.xacro'" />
 
 <!-- Send joint values from simulation -->
 <!-- This package reads the robot_description parameter, finds all of the non-fixed joints -->

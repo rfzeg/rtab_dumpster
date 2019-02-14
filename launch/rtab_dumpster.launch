@@ -2,7 +2,7 @@
 
 <launch>
   
-<include file="$(find dumpster)/launch/robot_description.launch"/>
+<include file="$(find rtab_dumpster)/launch/robot_description.launch"/>
 
   <arg name="world" default="empty"/> 
   <arg name="paused" default="false"/>
@@ -12,7 +12,7 @@
   <arg name="debug" default="false"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find dumpster)/worlds/jackal_race.world"/>
+    <arg name="world_name" value="$(find rtab_dumpster)/worlds/jackal_race.world"/>
     <arg name="paused" value="$(arg paused)"/>
     <arg name="use_sim_time" value="$(arg use_sim_time)"/>
     <arg name="gui" value="$(arg gui)"/>
@@ -25,7 +25,7 @@
 	<arg name= "pos_y" default = "0"/>
 	<arg name= "pos_z" default = "0"/>
 	<arg name= "yaw" default = "0"/>
-	<arg name= "robot_name" default= "dumpster"/>
+	<arg name= "robot_name" default= "rtab_dumpster"/>
 	<node name="urdf_robot_model_spawner" pkg="gazebo_ros" type="spawn_model"
 	args="-param robot_description
 	-urdf
@@ -37,6 +37,6 @@
 	respawn="false" output="screen"/>
 
 <!--launch rviz with configuration file-->
-<node type="rviz" name="rviz" pkg="rviz" respawn="false" args="-d $(find dumpster)/rviz/dumpster.rviz"/>
+<node type="rviz" name="rviz" pkg="rviz" respawn="false" args="-d $(find rtab_dumpster)/rviz/rtab_dumpster.rviz"/>
 
 </launch>
