@@ -241,8 +241,9 @@
   </link>
 
 <!-- Camera -->
-
-<link name="camera"> <!-- must match the name of the reference in the .gazebo file -->
+<!-- link name must match the name of the reference in the .gazebo file -->
+<!--
+<link name="camera"> 
     <pose>0 0 0.1 0 0 0</pose>
 
     <inertial>
@@ -275,9 +276,28 @@
     <child link="camera"/>
     <parent link="laser_pole"/>
   </joint>
+-->
+
+<!-- Kinect Sensor -->
+<!-- link name must match the name of the reference in the .gazebo file -->
+    <link name="kinect_link">
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 1.5708"/>
+            <geometry>
+                <mesh filename="package://rtab_dumpster/meshes/kinect.dae" scale="1.0 1.0 1.0"/>
+            </geometry>
+        </visual>
+    </link>
+
+    <joint name="kinect_joint" type="fixed">
+        <origin xyz="0.0 0 0.285" rpy="0 0 0"/>
+        <parent link="laser_pole"/>
+        <child link="kinect_link"/>
+</joint>
+
 
 <!-- Laser -->
-
+<!--
 <link name="hokuyo">
     <pose>0 0 0.1 0 0 0</pose>
 
@@ -311,5 +331,6 @@
     <child link="hokuyo"/>
     <parent link="laser_pole"/>
   </joint>
+-->
 
 </robot>

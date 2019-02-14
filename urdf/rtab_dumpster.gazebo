@@ -20,7 +20,7 @@
 
 
 <!-- RGBD Camera -->
-  <gazebo reference="camera"> <!-- reference must match the name of the link in the Xacro URDF -->
+  <gazebo reference="kinect_link"> <!-- reference must match the name of the link in the Xacro URDF -->
     <sensor type="depth" name="camera1"> <!-- The name must be unique from all other sensor names -->
         <always_on>1</always_on>
         <update_rate>20.0</update_rate>
