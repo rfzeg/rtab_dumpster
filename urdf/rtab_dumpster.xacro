@@ -242,7 +242,7 @@
 
 <!-- Camera -->
 
-<link name="camera">
+<link name="camera"> <!-- must match the name of the reference in the .gazebo file -->
     <pose>0 0 0.1 0 0 0</pose>
 
     <inertial>
