@@ -75,7 +75,7 @@
 <!-- Dump box -->
   
     <joint name="dump_box_joint" type="fixed">
-    <origin xyz="0 0 0.1" rpy="1.57079 0 1.57079" />
+    <origin xyz="-0.025 0.0 0.1" rpy="1.57079 0 1.57079" /> <!-- X:front,back, Y:left,right, Z:up,down-->
     <parent link="chassis"/>
     <child link="dump_box" />
   </joint>
@@ -159,6 +159,43 @@
       <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/>
         <geometry>
         <box size="0.05 0.05 0.3"/>
+        </geometry>
+    </visual>
+ 
+  </link>
+  
+<!-- laser pole -->
+  
+<joint type="fixed" name="laser_pole_joint">
+    <origin xyz="0.225 0.0 0.1" rpy="0 0 0"/>
+    <child link="laser_pole"/>
+    <parent link="chassis"/>
+  </joint>
+ 
+  <link name='laser_pole'>
+    <pose>0 0 0 0 0 0</pose>
+ 
+    <inertial>
+      <mass value="0.2"/>
+      <origin xyz="0.0 0 0" rpy=" 0 0 0"/>
+      <inertia
+          ixx="0.1" ixy="0" ixz="0"
+          iyy="0.1" iyz="0"
+          izz="0.1"
+      />
+    </inertial>
+ 
+    <collision name='collision'>
+      <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/> 
+      <geometry>
+        <box size="0.05 0.05 0.5"/>
+      </geometry>
+    </collision>
+ 
+    <visual name='laser_pole_visual'>
+      <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/>
+        <geometry>
+        <box size="0.05 0.05 0.5"/>
         </geometry>
     </visual>
  
@@ -280,8 +317,8 @@
 
 <!-- Kinect Sensor -->
 <xacro:include filename="$(find rtab_dumpster)/urdf/kinect.xacro"/>
+
 <!-- Laser -->
-<!--
 <link name="hokuyo">
     <pose>0 0 0.1 0 0 0</pose>
 
@@ -311,10 +348,9 @@
   </link>
 
 <joint type="fixed" name="hokuyo_joint">
-    <origin xyz="0.0 0 0.285" rpy="0 0 0"/>
+    <origin xyz="0.0 0 0.375" rpy="0 0 0"/>
     <child link="hokuyo"/>
     <parent link="laser_pole"/>
   </joint>
--->
 
 </robot>

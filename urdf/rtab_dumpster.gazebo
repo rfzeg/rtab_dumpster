@@ -136,5 +136,9 @@
     <material>Gazebo/Green</material>
   </gazebo>
 
+ <!-- laser_pole -->
+ <gazebo reference="laser_pole">
+    <material>Gazebo/Green</material>
+  </gazebo>
 
 </robot>
