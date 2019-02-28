@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
 <robot name="sensor_kinect" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <xacro:property name="kinect_cam_py" value="-0.0125"/>
-  <xacro:property name="M_PI" value="3.1415926535897931" /> 
-  	<xacro:property name="cam_px" value="0" />
-	<xacro:property name="cam_pz" value="0" />
-	<xacro:property name="cam_or" value="0" />
-	<xacro:property name="cam_op" value="0" />
-	<xacro:property name="cam_oy" value="0" />
+
+  <xacro:property name="M_PI" value="3.1415926535897931" />
+  
+  <xacro:property name="cam_px" value="0" />
+  <xacro:property name="kinect_cam_py" value="0"/> <!-- distance of kinect base to surface to which it is fixed -->
+  <xacro:property name="cam_pz" value="0" />
+  
+  <!-- change to make sure point cloud displayed in rviz is correctly alligned to world -->
+  <xacro:property name="cam_or" value="1.57079" />
+  <xacro:property name="cam_op" value="3.14159" /> 
+  <xacro:property name="cam_oy" value="1.57079" />
   	
         <joint name="kinect_joint" type="fixed">
-        <origin xyz="0.04 0 0.3" rpy="0 0 0"/>
+        <!-- align kinect's base to the surface to which it is fixed -->
+        <origin xyz="0.012 0 0.285" rpy="0 0 0"/>
         <parent link="kinect_pole"/>
         <child link="kinect_baselink"/>
 </joint>
@@ -20,31 +25,33 @@
     <joint name="camera_rgb_joint" type="fixed">
       <origin xyz="${cam_px} ${kinect_cam_py} ${cam_pz}" rpy="${cam_or} ${cam_op} ${cam_oy}"/>
       <parent link="kinect_baselink"/>
-      <child link="camera_rgb_frame" />
+      <child link="camera_rgbd_frame" />
     </joint>
-    <link name="camera_rgb_frame"/>
+    <link name="camera_rgbd_frame"/>
 
     <joint name="camera_rgb_optical_joint" type="fixed">
       <origin xyz="0 0 0" rpy="${-M_PI/2} 0 ${-M_PI/2}" />
-      <parent link="camera_rgb_frame" />
+      <parent link="camera_rgbd_frame" />
       <child link="camera_rgb_optical_frame" />
     </joint>
-    <link name="camera_rgb_optical_frame"/>\
+    <link name="camera_rgb_optical_frame"/>
     
-    <joint name="camera_joint" type="fixed">
-      <origin xyz="-0.031 ${-kinect_cam_py} -0.016" rpy="0 0 0"/>
-      <parent link="camera_rgb_frame"/>
-      <child link="camera_link"/>
+    <joint name="camera_meash_joint" type="fixed">
+      <origin xyz="0 ${-kinect_cam_py} 0" rpy="0 0 0"/>
+     <!-- <origin xyz="-0.031 ${-kinect_cam_py} -0.016" rpy="0 0 0"/> -->
+      <parent link="camera_rgbd_frame"/>
+      <child link="camera_mesh_link"/>
     </joint>  
-      <link name="camera_link">
+      <link name="camera_mesh_link">
       <visual>
-       <origin xyz="0 0 0" rpy="0 0 ${M_PI/2}"/>
+      <!-- change to make sure mesh image is correctly rotated once depth could is rightly alligned -->
+       <origin xyz="0 0 0" rpy="-1.57079 0 3.14159"/>
         <geometry>
          <mesh filename="package://rtab_dumpster/meshes/kinect.dae" scale="1.0 1.0 1.0"/>
         </geometry>
       </visual>
   	  <collision>
-        <origin xyz="0.0 0.0 0.0" rpy="0 0 0"/>
+        <origin xyz="0 0 0" rpy="-1.57079 0 3.14159"/>
   	    <geometry>
   	      <box size="0.07271 0.27794 0.073"/>
   	    </geometry>
@@ -62,7 +69,7 @@
 <!-- However, for Gazebo simulation we need them, so we add them here. (Don't publish them additionally on a real robot!) -->
 	<joint name="camera_depth_joint" type="fixed">
 	  <origin xyz="0 ${2 * -kinect_cam_py} 0" rpy="0 0 0" />
-	  <parent link="camera_rgb_frame" />
+	  <parent link="camera_rgbd_frame" />
 	  <child link="camera_depth_frame" />
 	</joint>
 	<link name="camera_depth_frame"/>
