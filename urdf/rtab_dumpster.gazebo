@@ -45,8 +45,10 @@
              <alwaysOn>true</alwaysOn>
                 <updateRate>10.0</updateRate>
                 <cameraName>camera</cameraName>
-                <!-- The coordinate frame the image is published under in the tf tree -->
+                <!-- The coordinate frame the point cloud image is published under in the tf tree -->
+                <!-- Rotate this frame in urdf/xacro file if point cloud is not correctly oriented in Rviz -->
                 <frameName>camera_rgbd_frame</frameName>
+    
             <!--topic the camera will be publishing to (image, info, depth image, point cloud -->         
             <imageTopicName>rgb/image_raw</imageTopicName>
             <depthImageTopicName>depth/image_raw</depthImageTopicName>
@@ -100,7 +102,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/rtab_dumpster/laser/scan</topicName>
+        <topicName>/scan</topicName>
         <frameName>hokuyo</frameName>
       </plugin>
     </sensor>
