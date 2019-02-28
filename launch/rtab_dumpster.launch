@@ -37,6 +37,6 @@
 	respawn="false" output="screen"/>
 
 <!--launch rviz with configuration file-->
-<node type="rviz" name="rviz" pkg="rviz" respawn="false" args="-d $(find rtab_dumpster)/rviz/rtab_dumpster.rviz"/>
+<node type="rviz" name="rviz" pkg="rviz" respawn="false" args="-d $(find rtab_dumpster)/rviz/robot_slam.rviz"/>
 
 </launch>
