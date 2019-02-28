@@ -2,6 +2,8 @@
 
 <launch>
   <!-- Arguments for launch file with defaults provided -->
+  <arg name="odom_tf_angular_variance" value="0.0001"/> <!-- If TF is used to get odometry, this is the default angular variance -->
+  <arg name="odom_tf_linear_variance" value="0.0001"/> <!-- If TF is used to get odometry, this is the default linear variance -->
   <arg name="database_path"     default="rtabmap.db"/>
   <arg name="scan_topic"   default="/scan"/> 
   <arg name="rgb_topic"   default="/camera/rgb/image_raw"/> 
@@ -23,6 +25,8 @@
       <param name="subscribe_scan"      type="bool"   value="true"/>
 
       <!-- RTAB-Map Inputs -->
+      <param name="odom_tf_angular_variance" type="double" value="$(arg odom_tf_angular_variance)"/>
+      <param name="odom_tf_linear_variance"  type="double" value="$(arg odom_tf_linear_variance)"/>
       <remap from="scan"            to="$(arg scan_topic)"/>
       <remap from="rgb/image"       to="$(arg rgb_topic)"/>
       <remap from="depth/image"     to="$(arg depth_topic)"/>
