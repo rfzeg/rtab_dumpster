@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  
+<include file="$(find rtab_dumpster)/launch/robot_description.launch"/>
+
+  <arg name="world" default="empty"/> 
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find stockroom)/worlds/stockroom2.world"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="$(arg use_sim_time)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="debug" value="$(arg debug)"/>
+</include>
+  
+<!--spawn a robot in gazebo world-->
+	<arg name= "pos_x" default = "2"/>
+	<arg name= "pos_y" default = "2"/>
+	<arg name= "pos_z" default = "0.01"/>
+	<arg name= "yaw" default = "0"/>
+	<arg name= "robot_name" default= "rtab_dumpster"/>
+	<node name="urdf_robot_model_spawner" pkg="gazebo_ros" type="spawn_model"
+	args="-param robot_description
+	-urdf
+	-x $(arg pos_x)
+	-y $(arg pos_y)
+	-z $(arg pos_z)
+	-Y $(arg yaw)
+	-model $(arg robot_name)"
+	respawn="false" output="screen"/>
+
+<!--launch rviz with configuration file-->
+<node type="rviz" name="rviz" pkg="rviz" respawn="false" args="-d $(find rtab_dumpster)/rviz/robot_slam.rviz"/>
+
+</launch>
