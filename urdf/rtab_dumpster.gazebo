@@ -44,6 +44,7 @@
              <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
              <alwaysOn>true</alwaysOn>
                 <updateRate>10.0</updateRate>
+                <!-- namespaces to avoid collision with other topics -->
                 <cameraName>camera</cameraName>
                 <!-- The coordinate frame the point cloud image is published under in the tf tree -->
                 <!-- Rotate this frame in urdf/xacro file if point cloud is not correctly oriented in Rviz -->
@@ -102,7 +103,7 @@
         </noise>
       </ray>
       <plugin name="gazebo_ros_head_hokuyo_controller" filename="libgazebo_ros_laser.so">
-        <topicName>/scan</topicName>
+        <topicName>/scan</topicName><!-- can include namespaces to avoid collision with other topics -->
         <frameName>hokuyo</frameName>
       </plugin>
     </sensor>

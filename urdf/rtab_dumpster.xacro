@@ -4,7 +4,7 @@
 
 <xacro:include filename="$(find rtab_dumpster)/urdf/rtab_dumpster.gazebo" />
 
-  <link name="robot_footprint"></link>
+<link name="robot_footprint"></link>
 
 <!-- Chassis & caster wheels -->
 
@@ -130,7 +130,8 @@
 <!-- kinect pole -->
   
 <joint type="fixed" name="kinect_pole_joint">
-    <origin xyz="0.275 0.0 0.1" rpy="0 0 0"/>
+<!--    <origin xyz="0.275 0.0 0.1" rpy="0 0 0"/> -->
+    <origin xyz="0.225 0.0 0.05" rpy="0 0 0"/>
     <child link="kinect_pole"/>
     <parent link="chassis"/>
   </joint>
@@ -151,14 +152,14 @@
     <collision name='collision'>
       <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/> 
       <geometry>
-        <box size="0.05 0.05 0.3"/>
+        <box size="0.05 0.05 0.2"/>
       </geometry>
     </collision>
  
     <visual name='kinect_pole_visual'>
       <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/>
         <geometry>
-        <box size="0.05 0.05 0.3"/>
+        <box size="0.05 0.05 0.2"/>
         </geometry>
     </visual>
  
@@ -167,7 +168,8 @@
 <!-- laser pole -->
   
 <joint type="fixed" name="laser_pole_joint">
-    <origin xyz="0.225 0.0 0.1" rpy="0 0 0"/>
+   <!-- <origin xyz="0.225 0.0 0.1" rpy="0 0 0"/> -->
+    <origin xyz="0.275 0.0 0.05" rpy="0 0 0"/>
     <child link="laser_pole"/>
     <parent link="chassis"/>
   </joint>
@@ -186,16 +188,16 @@
     </inertial>
  
     <collision name='collision'>
-      <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/> 
+      <origin xyz="0 0.0 0.05" rpy=" 0 0 0"/> 
       <geometry>
-        <box size="0.05 0.05 0.5"/>
+        <box size="0.05 0.05 0.1"/>
       </geometry>
     </collision>
  
     <visual name='laser_pole_visual'>
-      <origin xyz="0 0.0 0.1" rpy=" 0 0 0"/>
+      <origin xyz="0 0 0.05" rpy=" 0 0 0"/>
         <geometry>
-        <box size="0.05 0.05 0.5"/>
+        <box size="0.05 0.05 0.1"/>
         </geometry>
     </visual>
  
@@ -320,7 +322,7 @@
 
 <!-- Laser -->
 <link name="hokuyo">
-    <pose>0 0 0.1 0 0 0</pose>
+    <pose>0 0 0 0 0 0</pose>
 
     <inertial>
       <mass value="0.1"/>
@@ -348,7 +350,7 @@
   </link>
 
 <joint type="fixed" name="hokuyo_joint">
-    <origin xyz="0.0 0 0.375" rpy="0 0 0"/>
+    <origin xyz="0.0 0 0.135" rpy="0 0 0"/> <!-- set height relative to laser_pole -->
     <child link="hokuyo"/>
     <parent link="laser_pole"/>
   </joint>
