@@ -2,21 +2,30 @@
 <robot>
   <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
-      <legacyMode>false</legacyMode>
-      <alwaysOn>true</alwaysOn>
-      <updateRate>10</updateRate>  <!-- frequency in (Hz) published by the plugin -->
-      <leftJoint>left_wheel_hinge</leftJoint>
-      <rightJoint>right_wheel_hinge</rightJoint>
-      <wheelSeparation>0.6</wheelSeparation>
-      <wheelDiameter>0.3</wheelDiameter>
-      <torque>20</torque>
-      <!-- topic name on which to publish the linear and angular velocity of the robot -->
-      <commandTopic>cmd_vel</commandTopic> 
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>robot_footprint</robotBaseFrame>
+        <alwaysOn>true</alwaysOn>
+    	<!-- topic name on which to publish the linear and angular velocity of the robot -->
+        <commandTopic> cmd_vel </commandTopic>
+	<odometryTopic> odom </odometryTopic>
+	<odometryFrame> odom </odometryFrame>
+	<odometrySource> world </odometrySource>
+	<publishOdomTF> true </publishOdomTF>
+	<robotBaseFrame> robot_footprint </robotBaseFrame>
+	<publishWheelTF> false </publishWheelTF>
+	<publishTf> true </publishTf>
+	<publishWheelJointState> true </publishWheelJointState>
+	<legacyMode> false </legacyMode>
+	<updateRate> 10 </updateRate> <!-- frequency in (Hz) published by the plugin -->
+	<leftJoint> left_wheel_hinge </leftJoint>
+	<rightJoint> right_wheel_hinge </rightJoint>
+	<wheelSeparation> 0.6 </wheelSeparation>
+	<wheelDiameter> 0.3 </wheelDiameter>
+	<wheelAcceleration> 1  </wheelAcceleration>
+	<wheelTorque> 20 </wheelTorque>
+	<rosDebugLevel> na </rosDebugLevel> <!-- <rosDebugLevel>Debug</rosDebugLevel> -->
     </plugin>
   </gazebo>
+
+
 
 
 <!-- RGBD Camera -->
