@@ -10,15 +10,14 @@ The robot model comprises the following components: a rigid chassis, two indepen
 It also features a dump bin on top of its chassis. Additionally, both a laser scanner and a RGBD-camera are included in an elevated position in order to improve/maximize the sensors ﬁeld of view.  
 The main skills required for developing this robot model include the following: joint and link modeling with **URDF and XACRO**, integration of **Gazebo plugins** to provide the URDF model with sensors and actuators, **CAD modelling** of mesh files with Fusion 360 and version control with **GIT**.
 
-
-![rgbd_dumpster](docs/imgs/robot_model_in_gazebo.png)
+<img src="https://raw.githubusercontent.com/rfzeg/rtab_dumpster/master/docs/imgs/robot_model_in_gazebo.png" width="541" height="286">
 Fig.1 Image of the robot model in Gazebo  
 
-![rgbd_dumpster](docs/imgs/robot_model_dimentions.png)
+<img src="https://raw.githubusercontent.com/rfzeg/rtab_dumpster/master/docs/imgs/robot_model_dimentions.png" width="468" height="377">
 Fig.2 Size of the robot model's bounding box LENGTH x WIDTH x HEIGHT = 620 x 560 x 520mm  
 
-![mapping_rviz_1](docs/imgs/rgbd_dumpster_rtab-map.png)
-Fig.3 The scene displayed by Rviz on startup showing the proper conﬁgured depth sensor  
+<img src="https://raw.githubusercontent.com/rfzeg/rtab_dumpster/master/docs/imgs/rgbd_dumpster_rtab-map.png" width="541" height="291">
+Fig.3 The scene displayed by Rviz on startup showing the proper conﬁgured depth cloud orientation  
 
 ## Default topics
 + Image Topic: /camera/rgb/image_raw
@@ -27,7 +26,7 @@ Fig.3 The scene displayed by Rviz on startup showing the proper conﬁgured dept
 + Movement Commands: /cmd_vel
 
 ## Repository architecture
-### Directories :
+### Directories
 + **urdf/** : (required) contains the files that generate the robot model and provide simulated actuators and sensors
 + **meshes/** : (required) contains the mesh files that are part of the geometry of that robot
 + **config/** : (optional) contains YAML files that store the Navigation Stack configuration files for the robot
@@ -36,17 +35,28 @@ Fig.3 The scene displayed by Rviz on startup showing the proper conﬁgured dept
 + **worlds/** : (optional) contains scene/environment files for Gazebo
 + **maps/** : (optional) contains the occupancy grid based maps required for navigation
 
-### Robot model files :
-+ **dumster.xacro** : the xacro file that generates the urdf description file of the robot
-+ **dumster.gazebo** : file accompanying the .xacro file, it contains the gazebo specific plugins that provide an interface to control the robot and simulate sensors
+### Robot model files
++ **rtab_dumster.xacro** : the xacro file that generates the urdf description file of the robot
++ **rtab_dumster.gazebo** : contains the Gazebo plugins that provide an interface to control the robot wheels and simulate the laser sensor
++ **kinect.xacro** : contains the plugins to simulate a Kinect sensor in Gazebo
 
-## Direct usage:
-
+## Direct usage
 - Clone this repository into a ROS catkin workspace
 - Build and source the workspace
-- To launch this package including Rviz: `roslaunch rtab_dumpster demo.launch`
+- To launch this package including an empty Gazebo world and Rviz: `roslaunch rtab_dumpster demo.launch`
+or  
+- To spawn the robot into another already opened Gazebo world:  
+`roslaunch rtab_dumpster robot_description.launch`  
+`roslaunch rtab_dumpster spawn_rtab_dumpster.launch`  
 
-If you want to move the robot using a keyboard you will also need to start a teleop node.
-To run the robot with the Navigation Stack type in a new window: `roslaunch rtab_dumpster amcl.launch`
+If you want to move the robot using a keyboard you will also need to start a teleop node.  
+To run the robot with the Navigation Stack type in a new window: `roslaunch rtab_dumpster amcl.launch`  
+
+To view raw images on the topic /camera/rgb/image_raw, use:  
+`rosrun image_view image_view image:=/camera/rgb/image_raw`  
+
+## Known Issues
++ Kinect camera in Gazebo does not publish topics: It seems there is a bug with Gazebo 7.0.0 inside Virtual Machines, which then got resolved in a later version of Gazebo 7.
+The solution is to upgrade Gazebo.
 
 This package has only been tested on Ubuntu 16.04 LTS with ROS Kinetic and Gazebo 7.0 and 7.15.
