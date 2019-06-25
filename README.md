@@ -23,8 +23,12 @@ Fig.3 The scene displayed by Rviz on startup showing the proper conﬁgured dept
 + Image Topic: /camera/rgb/image_raw
 + Depth Image Topic: /camera/depth/image_raw
 + Laser Scan Topic: /scan
++ Odometry Topic: /odom
 + Movement Commands: /cmd_vel
 
+It is possible to spaw the robot into a running Gazebo simulation with a custom Odometry Topic appending an argument like this:  
+`$ roslaunch rtab_dumpster spawn_rtab_dumpster.launch odometryTopic:=odom_perfect`
+ 
 ## Repository architecture
 ### Directories
 + **urdf/** : (required) contains the files that generate the robot model and provide simulated actuators and sensors
@@ -46,14 +50,14 @@ Fig.3 The scene displayed by Rviz on startup showing the proper conﬁgured dept
 - To launch this package including an empty Gazebo world and Rviz: `roslaunch rtab_dumpster demo.launch`
 or  
 - To spawn the robot into another already opened Gazebo world:  
-`roslaunch rtab_dumpster robot_description.launch`  
-`roslaunch rtab_dumpster spawn_rtab_dumpster.launch`  
+`$ roslaunch rtab_dumpster robot_description.launch`  
+`$ roslaunch rtab_dumpster spawn_rtab_dumpster.launch`  
 
 If you want to move the robot using a keyboard you will also need to start a teleop node.  
 To run the robot with the Navigation Stack type in a new window: `roslaunch rtab_dumpster amcl.launch`  
 
 To view raw images on the topic /camera/rgb/image_raw, use:  
-`rosrun image_view image_view image:=/camera/rgb/image_raw`  
+`$ rosrun image_view image_view image:=/camera/rgb/image_raw`  
 
 ## Known Issues
 + Kinect camera in Gazebo does not publish topics: It seems there is a bug with Gazebo 7.0.0 inside Virtual Machines, which then got resolved in a later version of Gazebo 7.

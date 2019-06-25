@@ -4,8 +4,15 @@
 
 <launch>
 
+<arg name="odometryTopic" default="odom" />
+<arg name="odometryFrame" default="odom" />
+<arg name="robotBaseFrame" default="robot_footprint" />
+
 <!-- Send URDF to parameter server -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rtab_dumpster)/urdf/rtab_dumpster.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rtab_dumpster)/urdf/rtab_dumpster.xacro'
+                                           odometryTopic:=$(arg odometryTopic)
+                                           odometryFrame:=$(arg odometryFrame)
+                                           robotBaseFrame:=$(arg robotBaseFrame)" />
 
 <!-- Send joint values from simulation -->
 <!-- This package reads the robot_description parameter, finds all of the non-fixed joints -->

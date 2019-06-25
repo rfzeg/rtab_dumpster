@@ -5,11 +5,11 @@
         <alwaysOn>true</alwaysOn>
     	<!-- topic name on which to publish the linear and angular velocity of the robot -->
         <commandTopic> cmd_vel </commandTopic>
-	<odometryTopic> odom </odometryTopic>
-	<odometryFrame> odom </odometryFrame>
+	<odometryTopic>$(arg odometryTopic)</odometryTopic>
+	<odometryFrame>$(arg odometryFrame)</odometryFrame>
+	<robotBaseFrame>$(arg robotBaseFrame)</robotBaseFrame>
 	<odometrySource> world </odometrySource>
 	<publishOdomTF> true </publishOdomTF>
-	<robotBaseFrame> robot_footprint </robotBaseFrame>
 	<publishWheelTF> false </publishWheelTF>
 	<publishTf> true </publishTf>
 	<publishWheelJointState> true </publishWheelJointState>
