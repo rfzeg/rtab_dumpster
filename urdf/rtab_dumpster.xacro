@@ -2,9 +2,12 @@
 
 <robot name="rtab_dumpster" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+<!-- Configure the Gazebo differential drive controller plugin -->
 <xacro:arg name="odometryTopic" default="odom" />
 <xacro:arg name="odometryFrame" default="odom" />
 <xacro:arg name="robotBaseFrame" default="robot_footprint" />
+<xacro:arg name="diff_drive_publishTf" default="true" />
+<xacro:arg name="diff_drive_publishOdomTF" default="true" />
 
 <xacro:include filename="$(find rtab_dumpster)/urdf/rtab_dumpster.gazebo" />
 

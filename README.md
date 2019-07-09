@@ -26,8 +26,16 @@ Fig.3 The scene displayed by Rviz on startup showing the proper conﬁgured dept
 + Odometry Topic: /odom
 + Movement Commands: /cmd_vel
 
-It is possible to spaw the robot into a running Gazebo simulation with a custom Odometry Topic appending an argument like this:  
-`$ roslaunch rtab_dumpster spawn_rtab_dumpster.launch odometryTopic:=odom_perfect`
+## Gazebo differential drive controller parameters
+Following parameters used by the diff_drive plugin can be customized editing the `spawn_rtab_dumpster.launch` file:  
++ odometryTopic: the topic to which publish the nav_msgs/Odometry messages that store an estimate of the position and velocity of a robot in free space, default="odom"  
++ odometryFrame: the name to use to broadcast the TF frame for odometry, default="odom"  
++ robotBaseFrame: the name of the TF frame for the base (root) link of the robot, default="robot_footprint"  
++ diff_drive_publishTf: boolean that sets whether to publish any TF data at all, default="true"  
++ diff_drive_publishOdomTF: boolean that sets whether to publish the odom TF. Set to false for situations where a different source for simulated odom is used, default="true"   
+
+These parameters can also be modified by passed in an argument when running the `spawn_rtab_dumpster.launch` file like this:  
+`$ roslaunch rtab_dumpster spawn_rtab_dumpster.launch odometryTopic:=odom_perfect`  
  
 ## Repository architecture
 ### Directories

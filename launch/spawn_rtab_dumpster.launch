@@ -4,15 +4,21 @@
 
 <launch>
 
-<arg name="odometryTopic" default="odom" />
-<arg name="odometryFrame" default="odom" />
-<arg name="robotBaseFrame" default="robot_footprint" />
+<!-- Configure the Gazebo differential drive controller plugin -->
+<!-- or set args from CLI, e.g. roslaunch rtab_dumpster spawn_rtab_dumpster.launch diff_drive_publishTf:=false diff_drive_publishOdomTF:=false -->
+    <arg name="odometryTopic" default="odom" />
+    <arg name="odometryFrame" default="odom" />
+    <arg name="robotBaseFrame" default="robot_footprint" />
+    <arg name="diff_drive_publishTf" default="true" />
+    <arg name="diff_drive_publishOdomTF" default="true" />
 
 <!-- Send URDF to parameter server -->
-  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rtab_dumpster)/urdf/rtab_dumpster.xacro'
-                                           odometryTopic:=$(arg odometryTopic)
-                                           odometryFrame:=$(arg odometryFrame)
-                                           robotBaseFrame:=$(arg robotBaseFrame)" />
+<param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rtab_dumpster)/urdf/rtab_dumpster.xacro'
+                                         odometryTopic:=$(arg odometryTopic)
+                                         odometryFrame:=$(arg odometryFrame)
+                                         robotBaseFrame:=$(arg robotBaseFrame)
+                                         diff_drive_publishTf:=$(arg diff_drive_publishTf)
+                                         diff_drive_publishOdomTF:=$(arg diff_drive_publishOdomTF)" />
 
 <!-- Send joint values from simulation -->
 <!-- This package reads the robot_description parameter, finds all of the non-fixed joints -->

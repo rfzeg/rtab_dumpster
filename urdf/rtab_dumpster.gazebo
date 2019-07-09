@@ -1,20 +1,29 @@
 <?xml version="1.0"?>
 <robot>
+<!-- Diff Drive Controller -->
   <gazebo>
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+	<legacyMode> false </legacyMode>
         <alwaysOn>true</alwaysOn>
     	<!-- topic name on which to publish the linear and angular velocity of the robot -->
         <commandTopic> cmd_vel </commandTopic>
+        <!-- Set the name of the topic to which publish nav_msgs/Odometry messages -->
 	<odometryTopic>$(arg odometryTopic)</odometryTopic>
+        <!-- Set the name of the odometry frame for this robot -->
 	<odometryFrame>$(arg odometryFrame)</odometryFrame>
+        <!-- Set the name of the TF frame for the base (root) link of the robot -->
 	<robotBaseFrame>$(arg robotBaseFrame)</robotBaseFrame>
+        <!-- odometrySource: use 'encoder' to get data form encoder integration or 'world' to get data form gazebo world -->
 	<odometrySource> world </odometrySource>
-	<publishOdomTF> true </publishOdomTF>
-	<publishWheelTF> false </publishWheelTF>
-	<publishTf> true </publishTf>
+        <!-- publishTf: boolean that sets whether to publish any TF data -->
+	<publishTf>$(arg diff_drive_publishTf)</publishTf>
+        <!-- publishOdomTF: boolean that sets publishing odom tf data. Set to false for situations where a different source for simulated odom is used -->
+	<publishOdomTF>$(arg diff_drive_publishOdomTF) </publishOdomTF>
+        <!-- publishWheelTF: boolean, broadcast transform between wheel_parent_frame and wheel_frame -->
+	<publishWheelTF> true </publishWheelTF>
 	<publishWheelJointState> true </publishWheelJointState>
-	<legacyMode> false </legacyMode>
-	<updateRate> 10 </updateRate> <!-- frequency in (Hz) published by the plugin -->
+        <!-- Frequency in (Hz) published by the plugin -->
+	<updateRate> 10 </updateRate>
 	<leftJoint> left_wheel_hinge </leftJoint>
 	<rightJoint> right_wheel_hinge </rightJoint>
 	<wheelSeparation> 0.6 </wheelSeparation>
@@ -24,9 +33,6 @@
 	<rosDebugLevel> na </rosDebugLevel> <!-- <rosDebugLevel>Debug</rosDebugLevel> -->
     </plugin>
   </gazebo>
-
-
-
 
 <!-- RGBD Camera -->
   <gazebo reference="kinect_baselink"> <!-- reference must match the name of the link in the Xacro URDF -->
